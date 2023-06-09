@@ -5,43 +5,31 @@
  */
 module.exports = {
 
-  development: {
-    client: 'postgres',
-    connection: {
-      filename: './dev.postgres'
-    }
-  },
+    development: {
+        client: 'pg',
+        connection: 'postgres://localhost:5432/capstoneuserpost',
+        migrations: {
+            directory: './migrations'
+          },
+        useNullAsDefault: false
+      },
 
   staging: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
       database: 'my_db',
       user:     'username',
       password: 'password'
     },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
   },
 
   production: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
       database: 'my_db',
       user:     'username',
       password: 'password'
     },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
   }
 
 };
