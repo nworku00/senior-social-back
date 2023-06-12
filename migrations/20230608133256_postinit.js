@@ -9,7 +9,7 @@ exports.up = function(knex) {
         table.text('text').notNullable()
         table.integer('savedBy').unsigned().nullable()
         table.integer('userId').unsigned().notNullable()
-        table.foreign('userId').references('id').inTable('user');
+        table.foreign('userId').references('id').inTable('users');
         table.timestamps(true, true)
     })
 };
