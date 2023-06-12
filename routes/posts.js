@@ -12,7 +12,7 @@ router.get("/:userid", authenticateToken, async function (req, res, next) {
     .catch((err) => next(err));
 });
 //get all posts
-router.get("/", authenticateToken, async function (req, res, next) {
+router.get("/", async function (req, res, next) {
     knex("posts")
     .select("*")
     .then((posts) => res.json(posts))
