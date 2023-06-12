@@ -1,31 +1,31 @@
 var express = require("express");
 var router = express.Router();
 var knex = require("../db"); // Import db.js
+var { generateAccessToken } = require("./auth.js");
 
 /* GET users listing. */
 
-router.get("/", async function (req, res, next) {
-    knex("user")
-        .select("*")
-        .then((user) => res.json(user))
-        .catch((err) => next(err));
-});
-router.get("/:id", async function (req, res, next) {
-    const { id } = req.params;
-    knex("user")
-        .select("*")
-        .where({ id })
-        .first()
-        .then((user) => res.json(user))
-        .catch((err) => next(err));
-});
-router.post("/", function (req, res, next) {
-    const { username , email, password } = req.body;
-    knex("user")
-        .insert([{ username , email, password }])
+router.post("/signup", function (req, res, next) {
+    const { firstName, lastName, email, password } = req.body;
+    knex("users")
+        .insert([{ firstName, lastName, email, password }])
         .returning("*")
-        .then((user) => res.json(user))
+        .then(([user]) => {
+            const token = generateAccessToken({ username: user.email })
+            res.json({ token, id: user.id ,firstName: user.firstName, lastName: user.lastName, email: user.email,password: user.password });
+        })
         .catch((err) => next(err));
+});
+router.get("/login", async (req, res, next) => {
+    const { email } = req.body;
+    await knex("users").where({ email }).first().returning("*").then(user => {
+        if (user.email) {
+            const token = generateAccessToken({ username: email });
+            res.json({ token: token, id: user.id ,firstName: user.firstName, lastName: user.lastName,email: user.email, password: user.password });
+        } else {
+            res.send('user not found')
+        }
+    })
 });
 
 module.exports = router;
