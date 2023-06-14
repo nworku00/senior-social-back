@@ -30,5 +30,8 @@ module.exports = {
             user: "slptpdeb",
             password: "0V2epevTD6VqdjyYOhG5jW48y09LL1Ho",
         },
+        migrations: {
+            directory: "./migrations",
+        },
     },
 };
