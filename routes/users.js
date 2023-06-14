@@ -6,6 +6,7 @@ var { generateAccessToken } = require("./auth.js");
 /* GET users listing. */
 
 router.post("/signup", function (req, res, next) {
+    res.set('ACCESS-CROSS-ALLOW-ORIGIN', '*')
     const { firstName, lastName, email, password } = req.body;
     knex("users")
         .insert([{ firstName, lastName, email, password }])
@@ -16,7 +17,7 @@ router.post("/signup", function (req, res, next) {
         })
         .catch((err) => next(err));
 });
-router.get("/login", async (req, res, next) => {
+router.post("/login", async (req, res, next) => {
     const { email } = req.body;
     await knex("users").where({ email }).first().returning("*").then(user => {
         if (user.email) {
