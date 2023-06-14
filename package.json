@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www && knex migrate:latest"
+    "start": "node ./bin/www && npx knex migrate:latest"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
