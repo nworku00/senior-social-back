@@ -6,11 +6,11 @@
 module.exports = {
     development: {
         client: "pg",
-        connection: "postgres://localhost:5432/capstoneuserpost",
+        connection:  "postgres://slptpdeb:0V2epevTD6VqdjyYOhG5jW48y09LL1Ho@rajje.db.elephantsql.com/slptpdeb",
         migrations: {
             directory: "./migrations",
         },
-        useNullAsDefault: false,
+        pool: { min: 2, max: 10 }
     },
 
     staging: {
@@ -24,14 +24,10 @@ module.exports = {
 
     production: {
         client: "pg",
-        connection: {
-            host: "postgres://slptpdeb:0V2epevTD6VqdjyYOhG5jW48y09LL1Ho@rajje.db.elephantsql.com/slptpdeb",
-            database: "slptpdeb",
-            user: "slptpdeb",
-            password: "0V2epevTD6VqdjyYOhG5jW48y09LL1Ho",
-        },
+        connection: "postgres://slptpdeb:0V2epevTD6VqdjyYOhG5jW48y09LL1Ho@rajje.db.elephantsql.com/slptpdeb",
         migrations: {
             directory: "./migrations",
         },
+        pool: { min: 2, max: 10 }
     },
 };
